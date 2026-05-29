@@ -1,6 +1,24 @@
-PLACEHOLDER LICENSE
+Creative Commons Attribution 4.0 International License (CC BY 4.0)
 
-Replace this placeholder with the selected dataset license before publication.
-Recommended options may include CC-BY-4.0 or CC0-1.0, depending on source data constraints.
+This dataset is licensed under the Creative Commons Attribution 4.0 International License.
 
-This template is provided for educational use only until a final license is chosen.
+You are free to:
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+Under the following terms:
+- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+---
+
+Dataset: Cyclic peptides binding to protein targets
+Authors: Kadochnikova Margarita
+Repository: https://github.com/chem-data-extraction/Cyclic_peptides_binding_to_protein_targets
+
+Source data:
+- Patel et al. (2020) PNAS — DOI: 10.1073/pnas.2003086117
+- Wang et al. (2019) Angewandte — DOI: 10.1002/ange.201908713
+- Charitou et al. (2022) JCTC — DOI: 10.1021/acs.jctc.2c00075
+- RCSB Protein Data Bank — https://www.rcsb.org/

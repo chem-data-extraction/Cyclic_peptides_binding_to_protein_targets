@@ -78,7 +78,6 @@ Rules in `specs/validation_rules.json`; checks via `scripts/validate_project.py`
 ## License
 
 The dataset (data/processed/dataset.csv) is licensed under CC BY 4.0.
-The code (scripts/) is licensed under MIT.
 
 The initial data is taken from scientific articles listed in `CITATION.cff'.
 

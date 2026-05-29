@@ -117,27 +117,30 @@ Targets, assay types, or years missing from your map. Plan follow-up searches or
 
 Less missing:
 
-Field	Coverage	Sources
-affinity_value	High	ChEMBL, BindingDB, PDBbind
-peptide_sequence	High	PDB, ChEMBL, papers
-target_type / target_class	High	ChEMBL, UniProt
-3D structure	High	PDB, CPSea, cPEPmatch
-source_id / doi	High	All sources
-peptide_length	High	PDB (calculated), papers
-structure_resolution	High	PDB
+| Field	| Coverage	| Sources |
+|-------|-----------|---------|
+| affinity_value	| High	| ChEMBL, BindingDB, PDBbind |
+| peptide_sequence |	High |	PDB, ChEMBL, papers |
+| target_type / target_class |	High |	ChEMBL, UniProt |
+| 3D structure	| High |	PDB, CPSea, cPEPmatch |
+| source_id / doi	| High |	All sources |
+| peptide_length	| High	| PDB (calculated), papers |
+| structure_resolution	| High	| PDB |
 
 Moderate missing:
-Field	Coverage	Sources
-peptide_cyclization_type	Medium	PDB (REMARK), papers, cPEPmatch
-method (SPR/ITC/FP)	Medium	ChEMBL (assay_type), papers
-temperature_C	Medium	Papers
-pH	Medium	Papers
-buffer	Medium	Papers
+| Field	| Coverage	| Sources |
+|-------|-----------|---------|
+| peptide_cyclization_type	| Medium	| PDB (REMARK), papers, cPEPmatch |
+| method (SPR/ITC/FP)	| Medium	| ChEMBL (assay_type), papers |
+| temperature_C	| Medium	| Papers |
+| pH	| Medium	| Papers |
+| buffer	| Medium	| Papers |
 
 Most missing:
-Field	Coverage	Recovery plan
-cyclization_positions	Low	Parse PDB CONECT records, manual from papers
-mutations	Low	Extract from paper methods section
-binding_mode / contacts	Low	Calculate from PDB (PyMOL, MD analysis)
-experimental details (pH, T)	Low	Prioritize papers with rich supplements
-affinity_error / error_nM	Low	Extract from papers with reported SD/SEM
+| Field	| Coverage	| Recovery plan |
+|-------|-----------|---------------|
+| cyclization_positions	| Low	| Parse PDB CONECT records, manual from papers |
+| mutations	| Low	| Extract from paper methods section |
+| binding_mode / contacts	| Low	| Calculate from PDB (PyMOL, MD analysis) |
+| experimental details (pH, T)	| Low	| Prioritize papers with rich supplements |
+| affinity_error / error_nM	| Low	| Extract from papers with reported SD/SEM |

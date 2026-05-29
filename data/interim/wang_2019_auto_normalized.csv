@@ -1,8 +1,8 @@
-ligand,peptide_sequence,target_type,affinity_value,kd_error_um,ic50_um,ic50_error_um,source_id,doi
-CycTev1,CWRDLYIX,TEV protease,8.2,0.8,,,wang_2019,10.1002/ange.201908713
-LinTev1,CWRDLYIX,TEV protease,50.0,5.0,,,wang_2019,10.1002/ange.201908713
-CycTev2,CQWFHSHX,TEV protease,6.9,0.9,,,wang_2019,10.1002/ange.201908713
-LinTev2,CQWFHSHX,TEV protease,39.0,5.0,,,wang_2019,10.1002/ange.201908713
-CycH8a,CQSLWMMX,HDAC8,7.1,0.7,9.7,0.7,wang_2019,10.1002/ange.201908713
-LinH8a,CQSLWMMX,HDAC8,,,50.0,,wang_2019,10.1002/ange.201908713
-LinH8a',CQSLWMMN,HDAC8,31.0,7.0,,,wang_2019,10.1002/ange.201908713
+ligand,peptide_sequence,target_type,affinity_value,kd_error_nm,ic50_nm,ic50_error_nm
+CycTev1,CWRDYLIX,TEV protease,8200.0,800.0,,
+LinTev1,CWRDYLIK,TEV protease,50000.0,5000.0,,
+CycTev2,CQWFSHRX,TEV protease,6900.0,900.0,,
+LinTev2,CQWFSHRK,TEV protease,39000.0,5000.0,,
+CycH8a,CQSLWMNX,HDAC8,7100.0,700.0,9700.0,700.0
+LinH8a,CQSLWMNK,HDAC8,50000.0,,,
+LinH8a’,CQSLWMNN,HDAC8,31000.0,7000.0,,

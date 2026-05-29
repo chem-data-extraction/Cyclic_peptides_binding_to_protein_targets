@@ -2,61 +2,176 @@
   "pipeline_version": "0.1.0",
   "inputs": [
     "data/extracted/pdf_extracted_records.csv",
-    "data/extracted/web_extracted_records.csv"
+    "data/extracted/kd_values.csv",
+    "data/extracted/wang_2019_auto.csv",
+    "data/extracted/charitou_peptides.csv",
+    "data/extracted/rcsb_metadata.csv"
   ],
   "output": "data/processed/dataset.csv",
   "steps": [
     {
-      "step_id": "merge_sources",
-      "operation": "concatenate",
-      "description": "Combine PDF- and web-extracted CSV files into a single interim table.",
-      "input_files": [
-        "data/extracted/pdf_extracted_records.csv",
-        "data/extracted/web_extracted_records.csv"
-      ],
-      "output_file": "data/interim/merged_records.csv"
-    },
-    {
-      "step_id": "normalize_units",
-      "operation": "unit_conversion",
-      "description": "Convert measurement_value to nanomolar (normalized_value_nm) using measurement_unit.",
-      "fields": ["measurement_value", "measurement_unit"],
-      "output_file": "data/interim/merged_records.csv"
-    },
-    {
-      "step_id": "standardize_sequences",
+      "step_id": "normalize_sequences",
       "operation": "sequence_cleanup",
-      "description": "Uppercase aptamer sequences and remove whitespace or invalid characters.",
-      "fields": ["aptamer_sequence"],
-      "output_file": "data/interim/merged_records.csv"
+      "description": "Normalize peptide sequences: remove (AcK) markers, GSGSGS linkers, amber stop codons, and starting methionine.",
+      "fields": ["peptide_sequence"],
+      "transformations": [
+        "remove modification markers (AcK)",
+        "remove GSGSGS linker",
+        "remove amber stop codon",
+        "remove starting methionine",
+        "keep only A-Z letters",
+        "convert to uppercase"
+      ],
+      "examples": [
+        {
+          "input": "(AcK)TWLIP(AcK)IR(AcK)TL(AcK)",
+          "output": "TWLIPIRTL"
+        },
+        {
+          "input": "MKTIMGMTWRTMQCGSGSGSamber",
+          "output": "KTIMGMTWRTMQ"
+        }
+      ]
     },
     {
-      "step_id": "standardize_missing_values",
+      "step_id": "normalize_affinity_units",
+      "operation": "unit_conversion",
+      "description": "Convert all affinity values to nanomolar (nM). Values from Wang data are in µM, need conversion. Values from Patel KD table are already in nM.",
+      "fields": ["affinity_value", "affinity_unit"],
+      "rules": [
+        {
+          "condition": "source_id == 'wang_2019'",
+          "conversion": "multiply by 1000",
+          "from_unit": "µM",
+          "to_unit": "nM"
+        },
+        {
+          "condition": "source_id in ['paper_patel_pnas_2020', 'patel_kd_values']",
+          "conversion": "keep as is",
+          "from_unit": "nM",
+          "to_unit": "nM"
+        }
+      ],
+      "examples": [
+        {
+          "input_value": 8.2,
+          "input_unit": "µM",
+          "output_value": 8200,
+          "output_unit": "nM"
+        },
+        {
+          "input_value": 260,
+          "input_unit": "nM",
+          "output_value": 260,
+          "output_unit": "nM"
+        }
+      ]
+    },
+    {
+      "step_id": "enrich_with_pdb",
+      "operation": "lookup_merge",
+      "description": "Add PDB structural metadata (pdb_id, structure_resolution, uniprot_id) by matching normalized peptide sequences with Charitou dataset.",
+      "fields": ["pdb_id", "structure_resolution", "uniprot_id"],
+      "lookup_source": "data/extracted/charitou_peptides.csv",
+      "match_field": "peptide_sequence",
+      "examples": [
+        {
+          "peptide_sequence": "TWLIPIRTL",
+          "matched_pdb_id": "6U4A",
+          "structure_resolution": 1.88,
+          "uniprot_id": "Q15059"
+        }
+      ]
+    },
+    {
+      "step_id": "determine_cyclization_type",
+      "operation": "categorical_inference",
+      "description": "Set peptide_cyclization_type based on source and naming conventions.",
+      "fields": ["peptide_cyclization_type"],
+      "rules": [
+        {
+          "condition": "source_id == 'paper_patel_pnas_2020'",
+          "value": "thioether"
+        },
+        {
+          "condition": "source_id == 'wang_2019' and ligand contains 'Cyc'",
+          "value": "cyclic"
+        },
+        {
+          "condition": "source_id == 'wang_2019' and ligand contains 'Lin'",
+          "value": "linear"
+        },
+        {
+          "condition": "source_id == 'charitou_2022'",
+          "value": "from charitou file"
+        }
+      ]
+    },
+    {
+      "step_id": "determine_target_class",
+      "operation": "categorical_inference",
+      "description": "Set target_class based on target_type.",
+      "fields": ["target_class"],
+      "rules": [
+        {
+          "condition": "target_type contains 'BRD'",
+          "value": "bromodomain"
+        },
+        {
+          "condition": "target_type contains 'TEV'",
+          "value": "protease"
+        },
+        {
+          "condition": "target_type contains 'HDAC'",
+          "value": "deacetylase"
+        }
+      ]
+    },
+    {
+      "step_id": "handle_missing_values",
       "operation": "missing_value_cleanup",
-      "description": "Map NA, N/A, -, empty strings to null-like values for pandas export.",
-      "fields": ["measurement_value", "buffer", "notes"],
-      "output_file": "data/interim/merged_records.csv"
+      "description": "Fill empty fields with appropriate default values.",
+      "fields": {
+        "target_class_sequence": "",
+        "cyclization_positions": "",
+        "buffer": "",
+        "mutations": "",
+        "temperature_C": "",
+        "pH": "",
+        "method": "",
+        "source_type": "",
+        "extraction_confidence": "high"
+      }
     },
     {
       "step_id": "deduplicate_records",
       "operation": "deduplicate",
-      "description": "Remove duplicate rows sharing record_id or identical sequence+target+value+source.",
-      "fields": ["record_id", "aptamer_sequence", "target_name", "measurement_value", "source_id"],
-      "output_file": "data/interim/merged_records.csv"
+      "description": "Remove duplicate records based on key fields.",
+      "fields": ["peptide_sequence", "target_type", "source_id"],
+      "keep": "first"
     },
     {
-      "step_id": "validate_schema",
+      "step_id": "validate_categorical_fields",
       "operation": "validation",
-      "description": "Run rules in specs/validation_rules.json via scripts/validate_project.py.",
-      "input_files": ["data/processed/dataset.csv"],
-      "output_file": "reports/practice_05_cleaning_publication.md"
+      "description": "Ensure categorical fields contain only allowed values.",
+      "fields": {
+        "peptide_cyclization_type": ["thioether", "cyclic", "linear", "head-to-tail", "backbone (head-to-tail)", "disulfide", "side-chain", "unknown", ""],
+        "target_class": ["bromodomain", "protease", "deacetylase", "kinase", "hydrolase", "transferase", "unknown", ""],
+        "affinity_type": ["KD", "IC50", "Ki", ""],
+        "affinity_unit": ["nM", "µM", "pM", "M", ""],
+        "extraction_confidence": ["high", "medium", "low", "unknown", ""],
+        "source_type": ["scientific_paper", "database", "web_page", ""]
+      }
     },
     {
       "step_id": "export_final_dataset",
       "operation": "export",
       "description": "Write schema-aligned columns to the publication dataset CSV.",
       "input_files": ["data/interim/merged_records.csv"],
-      "output_file": "data/processed/dataset.csv"
+      "output_file": "data/processed/dataset.csv",
+      "format": "csv",
+      "encoding": "utf-8",
+      "index": false
     }
   ]
 }

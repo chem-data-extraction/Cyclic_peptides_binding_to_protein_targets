@@ -8,11 +8,11 @@ The dataset will be used to analyze how cyclic peptide structure and target clas
 
 ## Scientific task
 
-Collect experimentally confirmed measurements of the binding of cyclic peptides to target proteins: peptide sequences, target proteins, affinity values (KD, IC50), type of cyclization, experimental conditions, structural data from the PDB.
+Collect experimentally confirmed measurements of the binding of cyclic peptides to target proteins: peptide sequences, target proteins, affinity values (KD), type of cyclization, experimental conditions, structural data from the PDB.
 
 ## What is one record?
 
-One **record** = one experimental value of the binding (KD or IC50) of a cyclic peptide to a target protein from a specific source. Matches one line in `data/processed/dataset.csv'.
+One **record** = one experimental value of the binding (KD) of a cyclic peptide to a target protein from a specific source. Matches one line in `data/processed/dataset.csv'.
 
 ## Repository structure
 

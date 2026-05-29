@@ -1,18 +1,126 @@
 cff-version: 1.2.0
-title: "Aptamer–protein binding dataset"
+title: "Cyclic peptides binding to protein targets"
 message: "If you use this dataset, please cite it as below."
 type: dataset
 authors:
-  - family-names: "Student"
-    given-names: "Name"
-    affiliation: "University / Course"
-repository-code: "https://github.com/example/aptamer-protein-binding-dataset"
-url: "https://github.com/example/aptamer-protein-binding-dataset"
+  - family-names: "Kadochnikova"
+    given-names: "Margarita"
+    affiliation: "ITMO University (Course: Extraction and preparation of chemical information)"
+repository-code: "https://github.com/chem-data-extraction/Cyclic_peptides_binding_to_protein_targets"
+url: "https://github.com/chem-data-extraction/Cyclic_peptides_binding_to_protein_targets"
 version: 0.1.0
-date-released: 2026-05-22
+date-released: 2026-05-29
 keywords:
-  - aptamer
+  - cyclic peptides
   - protein binding
   - affinity
+  - KD
+  - IC50
+  - bromodomain
+  - TEV protease
+  - HDAC8
   - scientific data extraction
 license: CC-BY-4.0
+references:
+  - type: article
+    authors:
+      - family-names: "Patel"
+        given-names: "Karishma"
+      - family-names: "Walshe"
+        given-names: "Louise J"
+      - family-names: "Walport"
+        given-names: "James L"
+      - family-names: "Solomon"
+        given-names: "Paul D"
+      - family-names: "Low"
+        given-names: "Jason K K"
+      - family-names: "Tran"
+        given-names: "Daniel H"
+      - family-names: "Mouradian"
+        given-names: "Kevork S"
+      - family-names: "Silva"
+        given-names: "Ana P G"
+      - family-names: "Wilkinson-White"
+        given-names: "Lorna"
+      - family-names: "Norman"
+        given-names: "Alexander"
+      - family-names: "Franck"
+        given-names: "Charlotte"
+      - family-names: "Matthews"
+        given-names: "Jacqueline M"
+      - family-names: "Guss"
+        given-names: "J Mitchell"
+      - family-names: "Payne"
+        given-names: "Richard J"
+      - family-names: "Passioura"
+        given-names: "Toby"
+      - family-names: "Suga"
+        given-names: "Hiroaki"
+      - family-names: "Mackay"
+        given-names: "Joel P"
+    title: "Cyclic peptides can engage a single binding pocket through highly divergent modes"
+    journal: "Proceedings of the National Academy of Sciences"
+    volume: 117
+    issue: 43
+    pages: "26728-26738"
+    year: 2020
+    doi: "10.1073/pnas.2003086117"
+    pmid: "33046654"
+    pmcid: "PMC7604503"
+    license: "CC-BY-4.0"
+  - type: article
+    authors:
+      - family-names: "Wang"
+        given-names: "Xiaoshan Shayna"
+      - family-names: "Chen"
+        given-names: "Peng-Hsun Chase"
+      - family-names: "Hampton"
+        given-names: "J Trae"
+      - family-names: "Tharp"
+        given-names: "Jeffery M"
+      - family-names: "Reed"
+        given-names: "Catrina A"
+      - family-names: "Das"
+        given-names: "Sukant K"
+      - family-names: "Wang"
+        given-names: "Duen-Shian"
+      - family-names: "Hayatshahi"
+        given-names: "Hamed S"
+      - family-names: "Shen"
+        given-names: "Yang"
+      - family-names: "Liu"
+        given-names: "Jin"
+      - family-names: "Liu"
+        given-names: "Wenshe Ray"
+    title: "A Genetically Encoded, Phage-Displayed Cyclic Peptide Library"
+    journal: "Angewandte Chemie International Edition"
+    volume: 58
+    issue: 44
+    pages: "15904–15909"
+    year: 2019
+    doi: "10.1002/anie.201908713"
+    pmid: "31398275"
+    pmcid: "PMC6803038"
+    license: "CC BY"
+  - type: article
+    authors:
+      - family-names: "Charitou"
+        given-names: "Vicky"
+      - family-names: "van Keulen"
+        given-names: "Siri C."
+      - family-names: "Bonvin"
+        given-names: "Alexandre M. J. J."
+    title: "Cyclization and Docking Protocol for Cyclic Peptide–Protein Modeling Using HADDOCK2.4"
+    journal: "Journal of Chemical Theory and Computation"
+    volume: 18
+    issue: 6
+    pages: "4027-4040"
+    year: 2022
+    doi: "10.1021/acs.jctc.2c00075"
+    license: "CC-BY-4.0"
+  - type: dataset
+    title: "RCSB Protein Data Bank"
+    authors:
+      - name: "RCSB PDB"
+    url: "https://www.rcsb.org/"
+    license: "CC0 1.0 Universal"

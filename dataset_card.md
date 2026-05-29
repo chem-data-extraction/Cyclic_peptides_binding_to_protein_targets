@@ -2,7 +2,7 @@
 
 ## Dataset title
 
-Cyclic peptides binding to protein targets (project for the course "Extraction and preparation of chemical information", version 0.1.0)
+Cyclic peptides binding to protein targets (project for the course "Extraction and preparation of chemical information", version 1.0.0)
 
 ## Dataset summary
 

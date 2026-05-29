@@ -52,6 +52,6 @@ The dataset follows the schema defined in `specs/dataset_schema.json`. Key field
 - Run `python scripts/validate_project.py` to validate the final dataset.
 
 ## Versioning
-- Current version: 1.0.0 (2026-05-29)
+- Current version: 0.1.0 (2026-05-29)
 
 

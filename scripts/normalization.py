@@ -28,7 +28,7 @@ wang["peptide_sequence"] = wang["peptide_sequence"].apply(normalize)
 wang.rename(columns={"target": "target_type"}, inplace=True)
 kd_values.rename(columns={"target": "target_type"}, inplace=True)
 
-wang.rename(columns={"kd_um": "affinity_value"}, inplace=True)
+wang.rename(columns={"kd_nm": "affinity_value"}, inplace=True)
 kd_values.rename(columns={"kd_nM": "affinity_value"}, inplace=True)
 wed_values.rename(columns={"resolution": "structure_resolution"}, inplace=True)
 

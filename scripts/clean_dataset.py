@@ -1,118 +1,126 @@
 #!/usr/bin/env python3
-"""Clean and normalize merged or extracted records into the final dataset."""
-
 from __future__ import annotations
 
-import json
+import re
 from pathlib import Path
 
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MERGED_PATH = ROOT / "data/interim/merged_records.csv"
-PDF_CSV = ROOT / "data/extracted/pdf_extracted_records.csv"
-WEB_CSV = ROOT / "data/extracted/web_extracted_records.csv"
-SCHEMA_PATH = ROOT / "specs/dataset_schema.json"
-DATASET_PATH = ROOT / "data/processed/dataset.csv"
-
-MISSING_TOKENS = {"", "na", "n/a", "none", "null", "-", "nan"}
-
-
-def normalize_sequence(seq: object) -> str:
+def normalize_sequence(seq: str) -> str:
     if pd.isna(seq):
         return ""
-    text = str(seq).upper().strip()
-    return "".join(c for c in text if c in "ACGTU")
+    seq = str(seq)
+    seq = re.sub(r'\([^)]+\)', '', seq)
+    seq = re.sub(r'C?GSGSGSamber$', '', seq)
+    seq = re.sub(r'C?GSGSGS$', '', seq)
+    seq = re.sub(r'amber$', '', seq)
+    seq = re.sub(r'^M', '', seq)
+    seq = re.sub(r'[^A-ZX]', '', seq)
+    return seq.upper()
 
-
-def normalize_missing_values(value: object):
-    if pd.isna(value):
-        return None
-    text = str(value).strip().lower()
-    if text in MISSING_TOKENS:
-        return None
-    return value
-
-
-def normalize_measurement_to_nm(value: object, unit: object):
-    if pd.isna(value) or value == "" or value is None:
-        return None
+def normalize_affinity_value(value, source_id: str, original_unit: str = "") -> tuple:
+    if pd.isna(value) or value == "":
+        return "", ""
     try:
-        num = float(value)
-    except (TypeError, ValueError):
-        return None
-    if pd.isna(unit):
-        return None
-    u = str(unit).strip().lower()
-    factors = {
-        "nm": 1.0,
-        "nanomolar": 1.0,
-        "pm": 0.001,
-        "picomolar": 0.001,
-        "μm": 1000.0,
-        "um": 1000.0,
-        "micromolar": 1000.0,
-        "µm": 1000.0,
-        "m": 1e9,
-        "molar": 1e9,
-    }
-    factor = factors.get(u)
-    if factor is None:
-        return None
-    return num * factor
+        val = float(value)
+    except (ValueError, TypeError):
+        return "", ""
+    if source_id == "wang_2019":
+        return val * 1000, "nM"
+    else:
+        return val, "nM"
 
+def determine_cyclization_type(row) -> str:
+    source_id = row.get("source_id", "")
+    ligand = row.get("ligand", "")
+    pep_name = row.get("peptide_name", "")
+    if source_id == "paper_patel_pnas_2020":
+        return "thioether"
+    elif source_id == "wang_2019":
+        if "Cyc" in str(ligand) or "Cyc" in str(pep_name):
+            return "cyclic"
+        elif "Lin" in str(ligand) or "Lin" in str(pep_name):
+            return "linear"
+    elif source_id == "charitou_2022":
+        return row.get("peptide_cyclization_type", "unknown")
+    return "unknown"
 
-def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    out = df.copy()
-    if "aptamer_sequence" in out.columns:
-        out["aptamer_sequence"] = out["aptamer_sequence"].map(normalize_sequence)
-    for col in out.columns:
-        if col in ("record_id", "aptamer_sequence"):
-            continue
-        out[col] = out[col].map(normalize_missing_values)
-    if "measurement_value" in out.columns and "measurement_unit" in out.columns:
-        out["normalized_value_nm"] = [
-            normalize_measurement_to_nm(v, u)
-            for v, u in zip(out["measurement_value"], out["measurement_unit"])
-        ]
-    if "record_id" in out.columns:
-        out = out.drop_duplicates(subset=["record_id"], keep="first")
-    return out
+def determine_target_class(target_type: str) -> str:
+    if pd.isna(target_type):
+        return "unknown"
+    target = str(target_type)
+    if "BRD" in target:
+        return "bromodomain"
+    elif "TEV" in target:
+        return "protease"
+    elif "HDAC" in target:
+        return "deacetylase"
+    else:
+        return "unknown"
 
-
-def load_schema_columns() -> list[str]:
-    with SCHEMA_PATH.open(encoding="utf-8") as f:
-        schema = json.load(f)
-    return [field["name"] for field in schema["fields"]]
-
-
-def load_input_frame() -> pd.DataFrame:
-    if MERGED_PATH.is_file():
-        return pd.read_csv(MERGED_PATH)
-    import importlib.util
-
-    build_path = ROOT / "scripts" / "build_dataset.py"
-    spec = importlib.util.spec_from_file_location("build_dataset", build_path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Cannot load {build_path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.build()
-
-
-def main() -> None:
-    df = load_input_frame()
-    columns = load_schema_columns()
+def main():
+    input_path = ROOT / "data/interim/merged_records.csv"
+    output_path = ROOT / "data/processed/dataset.csv"
+    
+    if not input_path.exists():
+        return
+    
+    df = pd.read_csv(input_path, low_memory=False)
+    
+    df["peptide_sequence"] = df["peptide_sequence"].apply(normalize_sequence)
+    
+    df = df[df["peptide_sequence"].notna()]
+    df = df[df["peptide_sequence"] != ""]
+    
+    normalized_affinity = []
+    for idx, row in df.iterrows():
+        val, unit = normalize_affinity_value(
+            row.get("affinity_value"), 
+            row.get("source_id", ""),
+            row.get("affinity_unit", "")
+        )
+        normalized_affinity.append(val)
+    df["affinity_value"] = normalized_affinity
+    df["affinity_unit"] = "nM"
+    
+    df["peptide_cyclization_type"] = df.apply(determine_cyclization_type, axis=1)
+    df["target_class"] = df["target_type"].apply(determine_target_class)
+    
+    df["target_class_sequence"] = df["target_class_sequence"].fillna("")
+    df["cyclization_positions"] = df["cyclization_positions"].fillna("")
+    df["temperature_C"] = df["temperature_C"].fillna("")
+    df["pH"] = df["pH"].fillna("")
+    df["buffer"] = df["buffer"].fillna("")
+    df["mutations"] = df["mutations"].fillna("")
+    df["method"] = df["method"].fillna("")
+    df["source_type"] = df["source_type"].fillna("")
+    df["source_url"] = df["source_url"].fillna("")
+    df["doi"] = df["doi"].fillna("")
+    df["extraction_method"] = df["extraction_method"].fillna("")
+    df["notes"] = df["notes"].fillna("")
+    
+    df = df.drop_duplicates(subset=["peptide_sequence", "target_type", "source_id"], keep="first")
+    
+    columns = [
+        "record_id", "peptide_sequence", "peptide_cyclization_type",
+        "target_type", "target_class_sequence", "target_class",
+        "affinity_value", "affinity_unit", "affinity_type",
+        "source_id", "source_type", "source_url", "doi",
+        "extraction_method", "extraction_confidence", "method",
+        "cyclization_positions", "temperature_C", "pH", "buffer",
+        "mutations", "structure_resolution", "uniprot_id", "notes"
+    ]
+    
     for col in columns:
         if col not in df.columns:
-            df[col] = None
+            df[col] = ""
+    
     df = df[columns]
-    cleaned = clean_dataframe(df)
-    DATASET_PATH.parent.mkdir(parents=True, exist_ok=True)
-    cleaned.to_csv(DATASET_PATH, index=False)
-    print(f"Wrote {len(cleaned)} cleaned rows to {DATASET_PATH.relative_to(ROOT)}")
-
+    
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False, encoding="utf-8")
 
 if __name__ == "__main__":
     main()

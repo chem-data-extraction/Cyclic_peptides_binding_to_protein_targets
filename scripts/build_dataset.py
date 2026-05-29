@@ -95,9 +95,6 @@ if not rcsb.empty:
         pdb = row.get('pdb_id', '')
         if pdb and pdb not in rcsb_dict:
             rcsb_dict[pdb] = {
-                'title': row.get('title', ''),
-                'organism': row.get('organism', ''),
-                'method': row.get('method', ''),
                 'uniprot_id': row.get('uniprot_id', ''),
                 'structure_resolution': row.get('structure_resolution', '')
             }
@@ -113,7 +110,6 @@ for idx, row in patel.iterrows():
     selection_round = extract_round_from_notes(notes)
     
     seq_clean = clean_sequence(row.get('peptide_sequence', ''))
-    peptide_length = len(seq_clean) if seq_clean else 0
     
     affinity_value = ''
     affinity_error = ''
@@ -136,6 +132,7 @@ for idx, row in patel.iterrows():
     pdb_id = ''
     structure_resolution = ''
     peptide_cyclization_type = row.get('peptide_cyclization_type', 'thioether')
+    uniprot_id = ''
     
     if seq_clean in charitou_dict:
         pdb_id = charitou_dict[seq_clean]['pdb_id']
@@ -143,15 +140,7 @@ for idx, row in patel.iterrows():
         if charitou_dict[seq_clean]['peptide_cyclization_type']:
             peptide_cyclization_type = charitou_dict[seq_clean]['peptide_cyclization_type']
     
-    title = ''
-    organism = ''
-    method = ''
-    uniprot_id = ''
-    
     if pdb_id and pdb_id in rcsb_dict:
-        title = rcsb_dict[pdb_id]['title']
-        organism = rcsb_dict[pdb_id]['organism']
-        method = rcsb_dict[pdb_id]['method']
         uniprot_id = rcsb_dict[pdb_id]['uniprot_id']
         if not structure_resolution and rcsb_dict[pdb_id]['structure_resolution']:
             structure_resolution = rcsb_dict[pdb_id]['structure_resolution']
@@ -162,7 +151,6 @@ for idx, row in patel.iterrows():
     record = {
         'record_id': row.get('record_id', f"record_{idx}"),
         'peptide_sequence': row.get('peptide_sequence', ''),
-        'peptide_length': peptide_length,
         'peptide_cyclization_type': peptide_cyclization_type,
         'target_type': target,
         'target_class_sequence': row.get('target_class_sequence', ''),
@@ -170,26 +158,20 @@ for idx, row in patel.iterrows():
         'affinity_value': affinity_value,
         'affinity_unit': 'nM',
         'affinity_type': 'KD',
-        'kd_error_nM': affinity_error,
-        'pdb_id': pdb_id,
-        'structure_resolution': structure_resolution,
-        'title': title,
-        'organism': organism,
-        'method': method,
-        'uniprot_id': uniprot_id,
-        'reads': reads if reads else '',
-        'selection_round': selection_round if selection_round else '',
         'source_id': row.get('source_id', 'paper_patel_pnas_2020'),
         'source_type': row.get('source_type', 'scientific_paper'),
         'source_url': row.get('source_url', 'https://doi.org/10.1073/pnas.2003086117'),
         'doi': row.get('doi', '10.1073/pnas.2003086117'),
         'extraction_method': row.get('extraction_method', 'excel_import'),
         'extraction_confidence': row.get('extraction_confidence', 'high'),
+        'method': row.get('method', ''),
         'cyclization_positions': '',
         'temperature_C': '',
         'pH': '',
         'buffer': '',
         'mutations': '',
+        'structure_resolution': structure_resolution,
+        'uniprot_id': uniprot_id,
         'notes': notes.strip(),
     }
     patel_records.append(record)
@@ -202,7 +184,6 @@ for _, row in kd_values.iterrows():
     target = row.get('target_type', '')
     affinity = row.get('affinity_value', '')
     affinity_error = row.get('error_nM', '')
-    page = row.get('page', '')
     
     if not target or pd.isna(affinity):
         continue
@@ -222,26 +203,18 @@ for _, row in kd_values.iterrows():
     pdb_id = ''
     structure_resolution = ''
     seq_clean = clean_sequence(peptide_seq)
+    uniprot_id = ''
     
     if seq_clean and seq_clean in charitou_dict:
         pdb_id = charitou_dict[seq_clean]['pdb_id']
         structure_resolution = charitou_dict[seq_clean]['structure_resolution']
     
-    title = ''
-    organism = ''
-    method = ''
-    uniprot_id = ''
-    
     if pdb_id and pdb_id in rcsb_dict:
-        title = rcsb_dict[pdb_id]['title']
-        organism = rcsb_dict[pdb_id]['organism']
-        method = rcsb_dict[pdb_id]['method']
         uniprot_id = rcsb_dict[pdb_id]['uniprot_id']
     
     record = {
         'record_id': f"kd_{peptide_name}_{target.replace('-', '_')}",
         'peptide_sequence': peptide_seq,
-        'peptide_length': len(seq_clean) if seq_clean else 0,
         'peptide_cyclization_type': cycl_type,
         'target_type': target,
         'target_class_sequence': '',
@@ -249,27 +222,21 @@ for _, row in kd_values.iterrows():
         'affinity_value': str(affinity),
         'affinity_unit': 'nM',
         'affinity_type': 'KD',
-        'kd_error_nM': str(affinity_error) if affinity_error else '',
-        'pdb_id': pdb_id,
-        'structure_resolution': structure_resolution,
-        'title': title,
-        'organism': organism,
-        'method': method,
-        'uniprot_id': uniprot_id,
-        'reads': '',
-        'selection_round': '',
         'source_id': 'patel_kd_values',
         'source_type': 'scientific_paper',
         'source_url': 'https://doi.org/10.1073/pnas.2003086117',
         'doi': '10.1073/pnas.2003086117',
         'extraction_method': 'excel_import',
         'extraction_confidence': 'high',
+        'method': '',
         'cyclization_positions': '',
         'temperature_C': '',
         'pH': '',
         'buffer': '',
         'mutations': '',
-        'notes': f"KD measurement for peptide {peptide_name} against {target}. Page: {page}",
+        'structure_resolution': structure_resolution,
+        'uniprot_id': uniprot_id,
+        'notes': f"KD measurement for peptide {peptide_name} against {target}",
     }
     kd_records.append(record)
 
@@ -294,12 +261,6 @@ for _, row in wang.iterrows():
     else:
         affinity_nm = ''
     
-    kd_error = row.get('kd_error_um')
-    if pd.notna(kd_error) and kd_error:
-        kd_error_nm = float(kd_error) * 1000
-    else:
-        kd_error_nm = ''
-    
     if 'TEV' in str(target):
         target_class = 'protease'
     elif 'HDAC' in str(target):
@@ -310,28 +271,22 @@ for _, row in wang.iterrows():
     seq_clean = clean_sequence(peptide_seq)
     pdb_id = ''
     structure_resolution = ''
+    uniprot_id = ''
     
     if seq_clean in charitou_dict:
         pdb_id = charitou_dict[seq_clean]['pdb_id']
         structure_resolution = charitou_dict[seq_clean]['structure_resolution']
     
-    title = ''
-    organism = ''
-    uniprot_id = ''
-    
     if pdb_id and pdb_id in rcsb_dict:
-        title = rcsb_dict[pdb_id]['title']
-        organism = rcsb_dict[pdb_id]['organism']
         uniprot_id = rcsb_dict[pdb_id]['uniprot_id']
     
     notes = f"Wang 2019. Ligand: {ligand}"
     if affinity_nm:
-        notes += f" KD={affinity_nm}±{kd_error_nm} nM"
+        notes += f" KD={affinity_nm} nM"
     
     record = {
         'record_id': f"wang_{ligand}",
         'peptide_sequence': peptide_seq,
-        'peptide_length': len(clean_sequence(peptide_seq)),
         'peptide_cyclization_type': cyclization,
         'target_type': target,
         'target_class_sequence': '',
@@ -339,26 +294,20 @@ for _, row in wang.iterrows():
         'affinity_value': affinity_nm,
         'affinity_unit': 'nM',
         'affinity_type': 'KD',
-        'kd_error_nM': kd_error_nm,
-        'pdb_id': pdb_id,
-        'structure_resolution': structure_resolution,
-        'title': title,
-        'organism': organism,
-        'method': 'SPR',
-        'uniprot_id': uniprot_id,
-        'reads': '',
-        'selection_round': '',
         'source_id': 'wang_2019',
         'source_type': 'scientific_paper',
         'source_url': 'https://doi.org/10.1002/ange.201908713',
         'doi': '10.1002/ange.201908713',
         'extraction_method': 'auto_extract',
         'extraction_confidence': 'high',
+        'method': 'SPR',
         'cyclization_positions': '',
         'temperature_C': '',
         'pH': '',
         'buffer': '',
         'mutations': 'Nle = norleucine' if 'Nle' in str(peptide_seq) else '',
+        'structure_resolution': structure_resolution,
+        'uniprot_id': uniprot_id,
         'notes': notes,
     }
     wang_records.append(record)
@@ -366,13 +315,13 @@ for _, row in wang.iterrows():
 wang_df = pd.DataFrame(wang_records)
 
 columns = [
-    'record_id', 'peptide_sequence', 'peptide_length', 'peptide_cyclization_type',
+    'record_id', 'peptide_sequence', 'peptide_cyclization_type',
     'target_type', 'target_class_sequence', 'target_class',
-    'affinity_value', 'affinity_unit', 'affinity_type', 'kd_error_nM',
-    'pdb_id', 'structure_resolution', 'title', 'organism', 'method', 'uniprot_id',
-    'reads', 'selection_round', 'source_id', 'source_type', 'source_url', 'doi',
-    'extraction_method', 'extraction_confidence', 'cyclization_positions',
-    'temperature_C', 'pH', 'buffer', 'mutations', 'notes'
+    'affinity_value', 'affinity_unit', 'affinity_type',
+    'source_id', 'source_type', 'source_url', 'doi',
+    'extraction_method', 'extraction_confidence', 'method',
+    'cyclization_positions', 'temperature_C', 'pH', 'buffer',
+    'mutations', 'structure_resolution', 'uniprot_id', 'notes'
 ]
 
 for col in columns:
@@ -385,13 +334,7 @@ for col in columns:
 
 all_records = pd.concat([patel_df[columns], kd_df[columns], wang_df[columns]], ignore_index=True)
 all_records = all_records.fillna('')
-
-if 'reads' in all_records.columns:
-    all_records['reads_sort'] = pd.to_numeric(all_records['reads'], errors='coerce')
-    all_records = all_records.sort_values(['reads_sort', 'selection_round'], ascending=[False, True])
-    all_records = all_records.drop(columns=['reads_sort'])
-else:
-    all_records = all_records.sort_values('source_id')
+all_records = all_records.sort_values('source_id')
 
 output_path = Path("data/interim/merged_records.csv")
 output_path.parent.mkdir(parents=True, exist_ok=True)

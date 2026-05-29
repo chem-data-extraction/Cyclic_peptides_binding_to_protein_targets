@@ -1,16 +1,18 @@
 # Cyclic peptides binding to protein targets (cyclic peptides binding to target proteins).
 
-Publication-ready **dataset project template** for the course *Extraction and preparation of chemical information*. Students move from a research topic to a structured, validated dataset with documented sources, extraction steps, cleaning pipeline, reports, and citation metadata.
+## System description
+Cyclic peptides and peptide-like macrocycles that bind protein targets. The system includes the cyclic ligand, the target protein, the binding assay, and the measured affinity or inhibition value.
 
-**Example topic:** Aptamer–protein binding dataset (replace with your own project in `project.json`).
+## Planned use of the collected dataset
+The dataset will be used to analyze how cyclic peptide structure and target class relate to binding strength, with the goal of selecting promising cyclic peptide ligands for drug-discovery tasks.
 
 ## Scientific task
 
-Collect experimentally reported aptamer–protein binding measurements (sequences, targets, affinity values, assay context) so they can be compared across literature and database sources.
+Collect experimentally confirmed measurements of the binding of cyclic peptides to target proteins: peptide sequences, target proteins, affinity values (KD, IC50), type of cyclization, experimental conditions, structural data from the PDB.
 
 ## What is one record?
 
-One **record** = one experimentally reported aptamer–protein binding measurement from a specific source (one row in `data/processed/dataset.csv`). See `project.json` and `reports/practice_01_record_and_schema.md`.
+One **record** = one experimental value of the binding (KD or IC50) of a cyclic peptide to a target protein from a specific source. Matches one line in `data/processed/dataset.csv'.
 
 ## Repository structure
 
@@ -28,18 +30,6 @@ One **record** = one experimentally reported aptamer–protein binding measureme
 | `tests/` | Pytest checks for required artifacts |
 
 **Formats:** JSON for specs and manifests; CSV for tabular data; Python for pipelines; Markdown for reports and documentation only. Notebooks are optional.
-
-## Five course practices
-
-Develop the repository in five steps (see `reports/`):
-
-1. **Record definition and dataset schema** — `specs/dataset_schema.json`, Practice 1 report  
-2. **Source map** — `specs/source_map.json`, Practice 2 report  
-3. **PDF extraction** — `specs/pdf_extraction_manifest.json`, `scripts/extract_pdf.py`, Practice 3 report  
-4. **Web extraction** — `specs/web_extraction_manifest.json`, `scripts/extract_web.py`, Practice 4 report  
-5. **Cleaning, normalization and publication** — `specs/cleaning_pipeline.json`, cleaning scripts, Practice 5 report  
-
-Complete **`reports/final_report.md`** and **`dataset_card.md`** before submission.
 
 ## Data pipeline
 

@@ -1,5 +1,5 @@
 {
-  "pdf_extraction_process": "Extract aptamer–protein binding records from selected PDF sources listed below.",
+  "pdf_extraction_process": "Cyclic peptides binding to protein targets.",
   "output_records_file": "data/extracted/pdf_extracted_records.csv",
   "input_sources": [
     {

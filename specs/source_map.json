@@ -5,166 +5,162 @@
   "source_groups": {
     "scientific_papers": [
       {
-        "source_id": "paper_green_2018",
-        "name": "Green et al. 2018 – thrombin-binding DNA aptamer",
+        "source_id": "patel_2020_pnas",
+        "name": "Cyclic peptides can engage a single binding pocket through highly divergent modes",
         "source_type": "journal_article",
-        "url": "https://doi.org/10.1021/example.2018",
-        "doi": "10.1021/example.2018",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7604503/",
+        "doi": "10.1073/pnas.2003086117",
         "access_status": "open_access",
         "access_method": "publisher PDF download",
-        "access_date": "2026-01-15",
+        "access_date": "2026-05-28",
         "license": "CC-BY-4.0",
         "expected_data_volume": "low",
-        "estimated_records": 8,
-        "available_data_types": ["tables", "text", "figures"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd", "assay_method"],
+        "estimated_records": 54,
+        "available_data_types": ["binding_measurements", "peptide_sequences", "assay_info"],
+        "expected_fields": ["peptide", "target", "kd_nM", "error_nM"],
         "extraction_strategy": {
-          "recommended_method": "pdf_table_extraction plus manual verification"
+          "recommended_method": "Extract KD values from Figures 1B, 4B, 5D"
         },
-        "notes": "Primary paper for thrombin aptamer benchmark measurements."
-      },
-      {
-        "source_id": "paper_lee_2020",
-        "name": "Lee et al. 2020 – multiplex aptamer panel",
-        "source_type": "journal_article",
-        "url": "https://doi.org/10.1038/example.2020",
-        "doi": "10.1038/example.2020",
-        "access_status": "subscription",
-        "access_method": "institutional library PDF",
-        "access_date": "2026-01-20",
-        "license": "publisher terms",
-        "expected_data_volume": "medium",
-        "estimated_records": 25,
-        "available_data_types": ["supplementary_tables"],
-        "expected_fields": ["aptamer_sequence", "target_name", "IC50", "buffer"],
-        "extraction_strategy": {
-          "recommended_method": "supplementary PDF table parsing"
-        },
-        "notes": "Use supplementary Table S3 for binding constants."
-      },
-      {
-        "source_id": "paper_kim_2015",
-        "name": "Kim et al. 2015 – lysozyme-binding aptamer",
-        "source_type": "journal_article",
-        "url": "https://doi.org/10.1016/example.2015",
-        "doi": "10.1016/example.2015",
-        "access_status": "open_access",
-        "access_method": "publisher PDF download",
-        "access_date": "2026-01-18",
-        "license": "CC-BY-NC-ND",
-        "expected_data_volume": "low",
-        "estimated_records": 6,
-        "available_data_types": ["tables", "text"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd", "assay_method"],
-        "extraction_strategy": {
-          "recommended_method": "pdfplumber table extraction"
-        },
-        "notes": "Benchmark lysozyme aptamer measurements."
+        "notes": "BET bromodomain peptides with AcK residues. KD values from SPR measurements."
       }
     ],
     "supplementary_materials": [
       {
-        "source_id": "supp_lee_2020_s3",
-        "name": "Lee 2020 Supplementary Table S3",
+        "source_id": "sup_charitou_2022_jctc",
+        "name": "Cyclization and Docking Protocol for Cyclic Peptide–Protein Modeling Using HADDOCK2.4",
         "source_type": "supplementary_data",
-        "url": "https://doi.org/10.1038/example.2020#supplementary",
-        "doi": "10.1038/example.2020",
+        "url": "https://doi.org/10.1021/acs.jctc.2c00075",
+        "doi": "10.1021/acs.jctc.2c00075",
         "access_status": "open_access",
         "access_method": "supplementary PDF",
-        "access_date": "2026-01-21",
+        "access_date": "2026-05-28",
         "license": "CC-BY-4.0",
-        "expected_data_volume": "medium",
-        "estimated_records": 20,
-        "available_data_types": ["tables"],
-        "expected_fields": ["aptamer_sequence", "measurement_value", "measurement_unit"],
+        "expected_data_volume": "low",
+        "estimated_records": 30,
+        "available_data_types": ["protein_structures", "peptide_sequences", "docking_validation_metrics"],
+        "expected_fields": ["pdb_id", "peptide_sequence", "peptide_length", "structure_resolution", "peptide_cyclization_type", "source_id", "doi"],
         "extraction_strategy": {
-          "recommended_method": "Camelot or tabula on supplementary PDF"
+          "recommended_method": "Automatic extraction from tables S1 and S2 in PDF format from supplementary information"
         },
-        "notes": "Machine-readable tables; preferred over main-text figure values."
+        "notes": "Article describes 30 cyclic peptide-protein complexes (18 backbone-cyclized + 12 disulfide-cyclized). No binding affinity constants (Kd/IC50) reported - focus is on structural prediction quality, not binding strength."
+      },
+      {
+        "source_id": "sup_patel_2020_pnas",
+        "name": "Cyclic peptides can engage a single binding pocket through highly divergent modes - Dataset S1 (Sequencing data)",
+        "source_type": "supplementary_data",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7604503/#sec14",
+        "doi": "10.1073/pnas.2003086117",
+        "access_status": "open_access",
+        "access_method": "supplementary Excel",
+        "access_date": "2026-05-28",
+        "license": "CC-BY-4.0",
+        "expected_data_volume": "high",
+        "estimated_records": 47609,
+        "available_data_types": ["peptide_sequences", "experimental_conditions"],
+        "expected_fields": ["record_id", "peptide_sequence", "peptide_cyclization_type", "target_type", "target_class_sequence", "target_class", "affinity_value", "affinity_unit", "affinity_type", "source_id", "source_type", "source_url", "doi", "extraction_method", "extraction_confidence", "method", "cyclization_positions", "temperature_C", "pH", "buffer", "mutations", "notes"],
+        "extraction_strategy": {
+          "recommended_method": "Extract peptide sequences, counts per round, and frequency. No affinity values (KD) in this file - those are in main text figures."
+        },
+        "notes": "Deep sequencing results from RaPID screen against BRD3-BD1. Contains >47000 unique peptide sequences with read counts per selection round (R3, R4, R5). Each peptide contains at least one AcK (acetyllysine). No KD values in this file."
       }
     ],
     "databases": [
       {
-        "source_id": "db_aptagen",
-        "name": "AptaIndex / literature-curated aptamer entries",
+        "source_id": "db_CPSea",
+        "name": "CPSea: Large-scale cyclic peptide-protein complex dataset for machine learning in cyclic peptide design",
         "source_type": "database",
-        "url": "https://example.org/aptamer-db",
+        "url": "https://www.kaggle.com/datasets/ziyiyang180104/cpsea/",
         "doi": "",
         "access_status": "open_access",
-        "access_method": "web export and API (if available)",
-        "access_date": "2026-02-01",
-        "license": "CC-BY-4.0",
+        "access_method": "Dataset download",
+        "access_date": "2026-05-28",
+        "license": "CC BY-SA 4.0",
         "expected_data_volume": "high",
-        "estimated_records": 200,
-        "available_data_types": ["structured_records", "sequences"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd"],
+        "estimated_records": 2710000,
+        "available_data_types": ["", ""],
+        "expected_fields": ["", "", ""],
         "extraction_strategy": {
-          "recommended_method": "web_scrape or bulk CSV download"
+          "recommended_method": ""
         },
-        "notes": "Cross-check sequences against primary papers when possible."
-      }
-    ],
-    "aggregators": [
+        "notes": ""
+      },
       {
-        "source_id": "agg_uniprot_crossref",
-        "name": "UniProt + Crossref metadata for target proteins",
-        "source_type": "aggregator",
-        "url": "https://www.uniprot.org/",
+        "source_id": "db_rcsb_pdb",
+        "name": "RCSB PDB",
+        "source_type": "database",
+        "url": "https://www.rcsb.org/",
         "doi": "",
         "access_status": "open_access",
-        "access_method": "REST API",
-        "access_date": "2026-02-05",
-        "license": "CC-BY-4.0",
-        "expected_data_volume": "metadata_only",
-        "estimated_records": 0,
-        "available_data_types": ["protein_names", "identifiers"],
-        "expected_fields": ["target_name", "target_type"],
+        "access_method": "Dataset download",
+        "access_date": "2026-05-28",
+        "license": "",
+        "expected_data_volume": "high",
+        "estimated_records": ,
+        "available_data_types": ["", ""],
+        "expected_fields": ["", "", ""],
         "extraction_strategy": {
-          "recommended_method": "API lookup to standardize target names"
+          "recommended_method": ""
         },
-        "notes": "Does not provide binding values; enriches target metadata only."
+        "notes": ""
+      },
+      {
+        "source_id": "ChEMBL",
+        "name": "",
+        "source_type": "database",
+        "url": "",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "Dataset download",
+        "access_date": "2026-05-28",
+        "license": "",
+        "expected_data_volume": "high",
+        "estimated_records": ,
+        "available_data_types": ["", ""],
+        "expected_fields": ["", "", ""],
+        "extraction_strategy": {
+          "recommended_method": ""
+        },
+        "notes": ""
       }
     ],
     "github_repositories": [
       {
-        "source_id": "gh_aptamer_benchmark",
-        "name": "community/aptamer-binding-benchmark",
+        "source_id": "db_cPEPmatch",
+        "name": "briandasantini/cPEPmatch",
         "source_type": "github_repository",
-        "url": "https://github.com/example/aptamer-binding-benchmark",
+        "url": "https://github.com/briandasantini/cPEPmatch/tree/master",
         "doi": "",
         "access_status": "open_access",
         "access_method": "git clone",
-        "access_date": "2026-02-10",
-        "license": "MIT",
+        "access_date": "2026-05-28",
+        "license": "",
         "expected_data_volume": "medium",
-        "estimated_records": 50,
-        "available_data_types": ["csv", "json"],
-        "expected_fields": ["aptamer_sequence", "target_name", "measurement_value"],
+        "estimated_records": 400,
+        "available_data_types": ["", ""],
+        "expected_fields": ["", "", ""],
         "extraction_strategy": {
-          "recommended_method": "import released CSV with license check"
+          "recommended_method": ""
         },
-        "notes": "Verify commit hash and release tag for reproducibility."
-      }
-    ],
-    "ml_datasets": [
+        "notes": ""
+      },
       {
-        "source_id": "ml_aptamer_kaggle",
-        "name": "Kaggle – Aptamer affinity prediction subset",
-        "source_type": "ml_dataset",
-        "url": "https://www.kaggle.com/datasets/example/aptamer-affinity",
+        "source_id": "db_charitou_2022_jctc",
+        "name": "haddocking/cyclic-peptides",
+        "source_type": "github_repository",
+        "url": "https://github.com/haddocking/cyclic-peptides/tree/main",
         "doi": "",
-        "access_status": "registration_required",
-        "access_method": "Kaggle API download",
-        "access_date": "2026-02-12",
-        "license": "unknown",
-        "expected_data_volume": "high",
-        "estimated_records": 500,
-        "available_data_types": ["csv"],
-        "expected_fields": ["aptamer_sequence", "target_name", "label"],
+        "access_status": "open_access",
+        "access_method": "git clone",
+        "access_date": "2026-05-28",
+        "license": "Apache 2.0",
+        "expected_data_volume": "medium",
+        "estimated_records": ,
+        "available_data_types": ["", ""],
+        "expected_fields": ["", "", ""],
         "extraction_strategy": {
-          "recommended_method": "document provenance; use only if license permits redistribution"
+          "recommended_method": ""
         },
-        "notes": "May mix predicted and experimental values—filter by source column."
+        "notes": ""
       }
     ]
   }

@@ -1,86 +1,70 @@
 {
   "schema_version": "0.1.0",
-  "dataset_title": "Aptamer–protein binding dataset",
+  "dataset_title": "Cyclic peptides binding to protein targets",
   "fields": [
     {
       "name": "record_id",
       "type": "string",
       "required": true,
       "description": "Stable unique identifier for one binding measurement record.",
-      "example": "rec_apt_thrombin_2018_pdf_001"
+      "example": "rec_pep_egfr_2025_001"
     },
     {
-      "name": "aptamer_sequence",
+      "name": "peptide_sequence",
       "type": "string",
       "required": true,
-      "description": "Nucleotide sequence of the aptamer (DNA or RNA), 5' to 3'.",
-      "example": "GGTTGGTGTGGTTGG",
-      "normalization_rule": "Uppercase; remove spaces and hyphens; keep only A,C,G,T,U."
+      "description": "The amino acid sequence of a peptide in a single-letter code.",
+      "example": "ACDEFGH"
     },
     {
-      "name": "target_name",
-      "type": "string",
+      "name": "peptide_cyclization_type",
+      "type": "categorical",
       "required": true,
-      "description": "Name of the protein or biomolecular target.",
-      "example": "Thrombin"
+      "description": "The type of peptide cyclization is head-tail (amide bond between the N and C ends), disulfide (S–S bridge), side-chain (cyclization through side chains), etc.",
+      "example": "head-tail"
     },
     {
       "name": "target_type",
       "type": "string",
-      "required": false,
-      "description": "Broad classification of the target (e.g. enzyme, receptor, toxin).",
-      "example": "serine protease"
+      "required": true,
+      "description": "The name of the specific target protein (for example, HER2, EGFR, SARS-CoV-2 Mpro) to which the peptide binds.",
+      "example": "EGFR"
     },
     {
-      "name": "measurement_type",
+      "name": "target_class_sequence",
       "type": "string",
       "required": true,
-      "description": "Reported affinity or binding metric (Kd, Ki, IC50, etc.).",
-      "example": "Kd"
+      "description": "The sequence of the target protein. It indicates which amino acids make up the portion of the protein to which the peptide binds.",
+      "example": "KITDFGLAKLLGAEEKEYHAEGG"
     },
     {
-      "name": "measurement_value",
-      "type": "number",
-      "required": false,
-      "description": "Numeric value as reported in the source.",
-      "example": 0.5
+      "name": "target_class",
+      "type": "categorical",
+      "required": true,
+      "description": "Functional class of target protein: kinase, protease, GPCR, ion channel, receptor, etc.",
+      "example": "kinase"
     },
     {
-      "name": "measurement_unit",
-      "type": "string",
-      "required": false,
-      "description": "Unit of measurement_value (nM, μM, pM, etc.).",
+      "name": "affinity_value",
+      "type": "float",
+      "required": true,
+      "description": "The number (12.5, 0.5, 250) is how strongly the peptide binds to the target IC50, Ki, Kd (in nM). The lower the number, the stronger the connection.",
+      "example": 12.5
+    },
+    {
+      "name": "affinity_unit",
+      "type": "categorical",
+      "required": true,
+      "description": "The unit of affinity value is nM (nanomolar), µM (micromolar), pM (picomolar).",
       "example": "nM",
       "normalization_rule": "Map synonyms to nM, μM, pM, M; store original in notes if converted."
     },
     {
-      "name": "normalized_value_nm",
-      "type": "number",
-      "required": false,
-      "description": "Binding affinity converted to nanomolar (nM) for comparison.",
-      "example": 0.5,
-      "normalization_rule": "Convert measurement_value using measurement_unit to nM."
-    },
-    {
-      "name": "assay_method",
-      "type": "string",
-      "required": false,
-      "description": "Experimental method used to obtain the measurement.",
-      "example": "surface plasmon resonance"
-    },
-    {
-      "name": "buffer",
-      "type": "string",
-      "required": false,
-      "description": "Buffer composition during the binding assay.",
-      "example": "PBS with 5 mM MgCl2"
-    },
-    {
-      "name": "temperature_c",
-      "type": "number",
-      "required": false,
-      "description": "Assay temperature in degrees Celsius.",
-      "example": 25
+      "name": "affinity_type",
+      "type": "categorical",
+      "required": true,
+      "description": "Type of measured affinity IC50 (semi-maximal inhibitory concentration), Ki (inhibition constant), Kd (dissociation constant).",
+      "example": "IC50"
     },
     {
       "name": "source_id",
@@ -112,17 +96,73 @@
     },
     {
       "name": "extraction_method",
-      "type": "string",
+      "type": "categorical",
       "required": false,
-      "description": "How the record was obtained (pdf_manual, pdf_table, web_scrape, etc.).",
+      "description": "The method of extracting data from the source (manual from PDF, spreadsheet, web scraping, API, etc.).",
       "example": "pdf_table"
     },
     {
       "name": "extraction_confidence",
-      "type": "string",
+      "type": "categorical",
       "required": false,
       "description": "Confidence in extracted values: high, medium, low, or unknown.",
       "example": "high"
+    },
+    {
+      "name": "method",
+      "type": "categorical",
+      "required": false,
+      "description": "The method used to measure the affinity of SPR (surface plasmon resonance), ITC (isothermal titration calorimetry), fluorescence, AlphaScreen.",
+      "example": "SPR"
+    },
+    {
+      "name": "cyclization_positions",
+      "type": "string",
+      "required": false,
+      "description": "Positions of amino acids involved in cyclization (numbering from 1). Example: 1-16, Cys3-Cys11, Nterm-Lys7.",
+      "example": "1-16"
+    },
+    {
+      "name": "temperature_C",
+      "type": "float",
+      "required": false,
+      "description": "The temperature of the experiment in degrees Celsius.",
+      "example": 25.0
+    },
+    {
+      "name": "pH",
+      "type": "float",
+      "required": false,
+      "description": "The pH value of the buffer solution during measurement.",
+      "example": 7.4
+    },
+    {
+      "name": "buffer",
+      "type": "string",
+      "required": false,
+      "description": "Buffer solution composition: 'PBS, 0.05% Tween20', '50 mM Tris-HCl, 150 mM NaCl'.",
+      "example": "PBS, 0.05% Tween20"
+    },
+    {
+      "name": "mutations",
+      "type": "string",
+      "required": false,
+      "description": "Description of mutations in the peptide relative to the natural or initial sequence (for example, 'C3S, K5R' - The 3rd cysteine was replaced by serine, the 5th lysine by arginine, 'Y6F').",
+      "example": "C3S, K5R"
+    },
+    {
+      "name": "structure_resolution",
+      "type": "float",
+      "required": false,
+      "description": "Resolution of the PDB structure (Å, NMR, EM, null).",
+      "example": 1.70
+    },
+    {
+      "name": "uniprot_id",
+      "type": "string",
+      "required": false,
+      "description": "UniProt accession number of the target protein. Example: P00533 for EGFR, Q15059 for BRD3",
+      "example": "P00533"
     },
     {
       "name": "notes",

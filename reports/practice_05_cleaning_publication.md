@@ -1,7 +1,5 @@
 # Practice 5 — Cleaning, normalization and publication
 
-> Follow `specs/cleaning_pipeline.json`. Run `scripts/clean_dataset.py` and `scripts/validate_project.py`.
-
 ## Input files
 
 | Файл |	Описание |

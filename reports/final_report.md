@@ -66,11 +66,7 @@ Defined in `specs/source_map.json`:
 
 - Dataset schema: `specs/dataset_schema.json`
 - Checking data types and required fields
-- All records have the required fields filled in: `record_id`, `peptide_sequence', `peptide_cyclization_type`, `target_type`, `target_class`, `affinity_value`, `affinity_unit`, `affinity_type`, `source_id`
-
-## Limitations
-
-Coverage gaps, uncertain extractions, license restrictions, conflicting values.
+- All records have the required fields filled in: `record_id`, `peptide_sequence`, `peptide_cyclization_type`, `target_type`, `target_class`, `affinity_value`, `affinity_unit`, `affinity_type`, `source_id`
 
 ## Final artifacts
 

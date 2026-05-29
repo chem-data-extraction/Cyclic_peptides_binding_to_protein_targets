@@ -30,7 +30,6 @@ Collect experimentally reported binding measurements of cyclic peptides with pro
 
 ## Dataset fields
 
-List each schema field and how you will populate it. Update `specs/dataset_schema.json` when fields change.
 |  Field  |      How to populate    |
 |---------|-------------------------|
 | record_id	| Generate unique ID per record: rec_pep_egfr_2025_001 |

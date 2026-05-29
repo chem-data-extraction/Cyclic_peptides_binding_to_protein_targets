@@ -86,4 +86,4 @@ When using a dataset, it is necessary to cite both the original articles and thi
 
 ## Citation
 
-See `CITATION.cff`. Update authors, version, and repository URL before release.
+The file `CITATION.cff' contains the full information for citation.

@@ -21,15 +21,15 @@ Describe HTML layout: tables, pagination, JSON-LD, iframes.
 Page https://www.rcsb.org/structure/3WNE It has the following elements:
 |          HTML-element         |	 What it contains    |	   Code      |
 |-------------------------------|------------------------|---------------|
-| <span id="structureTitle">	|   Structure name	     | soup.find('span', id='structureTitle') |
-| <li id="header_classification"> |	Classification (type of protein) |	soup.find('li', id='header_classification') |
-| <li id="header_organism">	| Source organism	| soup.find('li', id='header_organism') |
-| <li id="header_expression-system">	| Expression system	soup.find('li', id='header_expression-system') |
-| <li id="exp_details_0_method"> |	Experimental method (X-ray, Cryo-EM) |	soup.find('li', id='exp_details_0_method') |
-| <li id="exp_details_0_diffraction_resolution"> |	Resolution in Å	| soup.find('li', id='exp_details_0_diffraction_resolution') |
-| <li id="header_deposition-authors">	| Authors of the deposit	| soup.find('li', id='header_deposition-authors') |
-| <a href="...P\d+...">	| Uniprot ID	| soup.find('a', href=re.compile(...)) |
-| <li id="header_doi">	| DOI structures |	soup.find('li', id='header_doi') |
+| `<span id="structureTitle">`	|   Structure name	     | soup.find('span', id='structureTitle') |
+| `<li id="header_classification">` |	Classification (type of protein) |	soup.find('li', id='header_classification') |
+| `<li id="header_organism">`	| Source organism	| soup.find('li', id='header_organism') |
+| `<li id="header_expression-system">`	| Expression system	soup.find('li', id='header_expression-system') |
+| `<li id="exp_details_0_method">` |	Experimental method (X-ray, Cryo-EM) |	soup.find('li', id='exp_details_0_method') |
+| `<li id="exp_details_0_diffraction_resolution">` |	Resolution in Å	| soup.find('li', id='exp_details_0_diffraction_resolution') |
+| `<li id="header_deposition-authors">`	| Authors of the deposit	| soup.find('li', id='header_deposition-authors') |
+| `<a href="...P\d+...">`	| Uniprot ID	| soup.find('a', href=re.compile(...)) |
+| `<li id="header_doi">`	| DOI structures |	soup.find('li', id='header_doi') |
 
 ## Extraction methods
 

@@ -67,6 +67,7 @@ Which DOM fields map to schema columns.
 | deposition_authors | 	Authors |	li#header_deposition-authors a	| "Wielens, J., Chalmers, D.K., Parker, M.W." |
 | uniprot_id	| Protein identifier in UniProt	| a[href*='database_accession:P']	| "P12497" |
 | pdb_doi |	DOI structures in the PDB |	li#header_doi a	| "10.2210/pdb3wne/pdb" |
+
 All selectors use unique `id` attributes, making them stable against minor layout changes. For fields that may be missing (e.g., `expression_system` for some entries), the parser gracefully returns an empty string.
 
 ## Extraction problems

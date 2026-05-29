@@ -1,14 +1,19 @@
 # Final report
 
-> Summarize the completed project for instructors and future users. Update when you submit.
-
 ## Project summary
 
-Template: Aptamer–protein binding dataset. Replace with your title, authors, and version.
+**Title:** Cyclic peptides binding to protein targets.
+**Author:** Kadochnikova Margarita
+**Version:** 0.1.0 (2026-05-29)
+**Course:** Extraction and preparation of chemical information
 
 ## Dataset goal
 
-What scientific question does the dataset support? Who is the intended audience?
+**Scientific question:** How are the cyclic peptide structure (type of cyclization, amino acid sequence), target protein class (bromodomains, proteases, deacetylases) and binding strength (KD) related?
+
+
+
+
 
 ## Source summary
 

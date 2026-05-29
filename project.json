@@ -2,9 +2,9 @@
   "project_id": "cyclic_peptides_protein_binding",
   "project_title": "Cyclic peptides binding to protein targets",
   "project_status": "active",
-  "scientific_task": "Collect experimentally reported aptamer–protein binding measurements for downstream comparison of binding affinity values and assay conditions.",
+  "scientific_task": "Collect experimentally confirmed measurements of the binding of cyclic peptides to target proteins: peptide sequences, target proteins, affinity values (KD), type of cyclization, experimental conditions, structural data from the PDB.",
   "record_definition": {
-    "one_record": "One experimentally reported aptamer–protein binding measurement from a specific source."
+    "one_record": "One experimental value of the binding (KD) of a cyclic peptide to a target protein from a specific source."
   },
   "main_entities": [
     "cyclic_peptide",

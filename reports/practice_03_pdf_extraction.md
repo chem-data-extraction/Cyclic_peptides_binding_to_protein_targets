@@ -1,7 +1,5 @@
 # Practice 3 — PDF extraction
 
-> Align with `specs/pdf_extraction_manifest.json` and `data/extracted/pdf_extracted_records.csv`.
-
 ## Selected PDF sources
 
 | source_id | pdf_id | Year (approx.) | Path |

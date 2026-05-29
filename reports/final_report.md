@@ -44,7 +44,7 @@ Defined in `specs/source_map.json`:
 1. **Normalization of sequences:** removal of markers `(AcK)`, linkers `CGSGSGSamber`, starting `M`
 2. **Reduction of affinity units:** all values are converted to nM
 3. **PDB data enrichment:** sequence comparison of peptides with PDB structures
-4. **Removing duplicates:** by the combination of `peptide_sequence' + `target_type`
+4. **Removing duplicates:** by the combination of `peptide_sequence` + `target_type`
 
 ### Normalization examples
 

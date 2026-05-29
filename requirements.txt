@@ -1,2 +1,9 @@
 pandas
 pytest
+numpy
+pdfplumber
+camelot-py
+openpyxl
+requests
+beautifulsoup4
+jsonschema

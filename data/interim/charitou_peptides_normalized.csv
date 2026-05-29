@@ -1,0 +1,31 @@
+pdb_id,peptide_sequence,peptide_length,structure_resolution,peptide_cyclization_type,source_id,doi
+3wne,PKIDNG,6,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3zgc,GDEETGE,7,2.2,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3av9,SAKIDNLD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3ava,ALKIDNLD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avb,SLKIDNLD,8,1.85,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avf,DLKIDNLD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avg,ADKIDNLD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avh,ARKIDNLD,8,1.88,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avi,SLKIDNMD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avj,ALKIDNMD,8,1.7,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avk,SLKIDNED,8,1.75,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avm,SRKIDNLD,8,1.88,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3avn,SHKIDNLD,8,2.1,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+5xn3,RGDINNNV,8,1.34,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+1sfi,GRCTKSIPPICFPD,14,1.65,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3p8f,GRCTKSIPPICFPD,14,2.0,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+4k1e,GFCQRSIPPICFPD,14,1.3,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+4kel,GFCQRSIPPICFPN,14,1.15,backbone (head-to-tail),charitou_2022,10.1021/acs.jctc.2c00075
+3wnf,CKIDNC,6,1.45,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+4ou3,CNGRCG,6,1.95,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+1smf,CTKSIPPEC,9,2.1,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+3p72,CTERMALHNLC,11,1.9,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+2ck0,CKEWLSTAPCG,11,2.2,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+5th2,CQFDQSTRRLKC,12,1.84,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+5djc,DCAWHLGELVWCT,13,2.1,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+4ib5,GCRLYGFKIHGCG,13,2.2,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+5h5q,CRVDLQGWRRCRR,13,1.1,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+5eoc,CQLINTNGSWHIC,13,1.98,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+5wxr,GACSARGLENHAAC,14,1.75,disulfide,charitou_2022,10.1021/acs.jctc.2c00075
+4m1d,CRIHIGPGRAFYTC,14,1.8,disulfide,charitou_2022,10.1021/acs.jctc.2c00075

@@ -1,0 +1,8 @@
+ligand,peptide_sequence,target_type,affinity_value,kd_error_um,ic50_um,ic50_error_um,source_id,doi
+CycTev1,CWRDLYIX,TEV protease,8.2,0.8,,,wang_2019,10.1002/ange.201908713
+LinTev1,CWRDLYIX,TEV protease,50.0,5.0,,,wang_2019,10.1002/ange.201908713
+CycTev2,CQWFHSHX,TEV protease,6.9,0.9,,,wang_2019,10.1002/ange.201908713
+LinTev2,CQWFHSHX,TEV protease,39.0,5.0,,,wang_2019,10.1002/ange.201908713
+CycH8a,CQSLWMMX,HDAC8,7.1,0.7,9.7,0.7,wang_2019,10.1002/ange.201908713
+LinH8a,CQSLWMMX,HDAC8,,,50.0,,wang_2019,10.1002/ange.201908713
+LinH8a',CQSLWMMN,HDAC8,31.0,7.0,,,wang_2019,10.1002/ange.201908713

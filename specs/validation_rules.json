@@ -30,6 +30,58 @@
       "description": "record_id values must be unique across the dataset."
     },
     {
+      "rule_id": "peptide_sequence_not_null",
+      "target": "peptide_sequence",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row must have a non-empty peptide_sequence."
+    },
+    {
+      "rule_id": "peptide_sequence_valid_chars",
+      "target": "peptide_sequence",
+      "rule_type": "allowed_chars",
+      "severity": "error",
+      "description": "peptide_sequence must contain only standard amino acid letters A-Z.",
+      "allowed_pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"
+    },
+    {
+      "rule_id": "peptide_cyclization_type_not_null",
+      "target": "peptide_cyclization_type",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row must have a non-empty peptide_cyclization_type."
+    },
+    {
+      "rule_id": "peptide_cyclization_type_allowed",
+      "target": "peptide_cyclization_type",
+      "rule_type": "allowed_values",
+      "severity": "error",
+      "description": "peptide_cyclization_type must be one of: thioether, cyclic, linear, head-to-tail, backbone (head-to-tail), disulfide, side-chain, unknown.",
+      "allowed_values": ["thioether", "cyclic", "linear", "head-to-tail", "backbone (head-to-tail)", "disulfide", "side-chain", "unknown", ""]
+    },
+    {
+      "rule_id": "target_type_not_null",
+      "target": "target_type",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row must have a non-empty target_type."
+    },
+    {
+      "rule_id": "target_class_not_null",
+      "target": "target_class",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row must have a non-empty target_class."
+    },
+    {
+      "rule_id": "target_class_allowed",
+      "target": "target_class",
+      "rule_type": "allowed_values",
+      "severity": "warning",
+      "description": "target_class should be one of: bromodomain, protease, deacetylase, kinase, hydrolase, transferase, unknown.",
+      "allowed_values": ["bromodomain", "protease", "deacetylase", "kinase", "hydrolase", "transferase", "unknown", ""]
+    },
+    {
       "rule_id": "source_id_not_null",
       "target": "source_id",
       "rule_type": "not_null",
@@ -51,18 +103,95 @@
       "description": "Dataset columns must match field names in specs/dataset_schema.json."
     },
     {
-      "rule_id": "measurement_value_numeric",
-      "target": "measurement_value",
+      "rule_id": "affinity_value_not_null",
+      "target": "affinity_value",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row must have a non-empty affinity_value."
+    },
+    {
+      "rule_id": "affinity_value_numeric",
+      "target": "affinity_value",
       "rule_type": "numeric_or_null",
       "severity": "error",
-      "description": "measurement_value must be numeric or empty/null."
+      "description": "affinity_value must be numeric or empty/null."
+    },
+    {
+      "rule_id": "affinity_value_positive",
+      "target": "affinity_value",
+      "rule_type": "positive",
+      "severity": "error",
+      "description": "affinity_value must be greater than 0."
+    },
+    {
+      "rule_id": "affinity_unit_not_null",
+      "target": "affinity_unit",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row with affinity_value must have a non-empty affinity_unit."
+    },
+    {
+      "rule_id": "affinity_unit_allowed",
+      "target": "affinity_unit",
+      "rule_type": "allowed_values",
+      "severity": "error",
+      "description": "affinity_unit must be one of: nM, µM, pM, M.",
+      "allowed_values": ["nM", "µM", "pM", "M", ""]
+    },
+    {
+      "rule_id": "affinity_type_not_null",
+      "target": "affinity_type",
+      "rule_type": "not_null",
+      "severity": "error",
+      "description": "Every row with affinity_value must have a non-empty affinity_type."
+    },
+    {
+      "rule_id": "affinity_type_allowed",
+      "target": "affinity_type",
+      "rule_type": "allowed_values",
+      "severity": "error",
+      "description": "affinity_type must be one of: KD, IC50, Ki.",
+      "allowed_values": ["KD", "IC50", "Ki", ""]
+    },
+    {
+      "rule_id": "structure_resolution_positive",
+      "target": "structure_resolution",
+      "rule_type": "positive",
+      "severity": "warning",
+      "description": "structure_resolution must be greater than 0 if provided."
+    },
+    {
+      "rule_id": "structure_resolution_range",
+      "target": "structure_resolution",
+      "rule_type": "range",
+      "severity": "warning",
+      "description": "structure_resolution should be between 0.5 and 10 Å for X-ray, or up to 100 Å for EM.",
+      "min": 0.5,
+      "max": 100
+    },
+    {
+      "rule_id": "uniprot_id_format",
+      "target": "uniprot_id",
+      "rule_type": "pattern",
+      "severity": "warning",
+      "description": "uniprot_id should follow UniProt accession format (6-10 alphanumeric characters).",
+      "pattern": "^[A-Z0-9]{6,10}$"
     },
     {
       "rule_id": "extraction_confidence_allowed",
       "target": "extraction_confidence",
       "rule_type": "allowed_values",
       "severity": "warning",
-      "description": "extraction_confidence must be one of: high, medium, low, unknown, or empty."
+      "description": "extraction_confidence must be one of: high, medium, low, unknown, or empty.",
+      "allowed_values": ["high", "medium", "low", "unknown", ""]
+    },
+    {
+      "rule_id": "doi_format",
+      "target": "doi",
+      "rule_type": "pattern",
+      "severity": "warning",
+      "description": "doi should follow standard DOI format (10.xxxx/xxxxx).",
+      "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9]+$"
     }
   ]
 }

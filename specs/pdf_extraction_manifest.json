@@ -1,42 +1,54 @@
 {
-  "pdf_extraction_process": "Cyclic peptides binding to protein targets.",
+  "pdf_extraction_process": "Cyclic peptides binding to protein targets - extraction from PNAS 2020 Excel file and other PDF sources",
   "output_records_file": "data/extracted/pdf_extracted_records.csv",
   "input_sources": [
     {
-      "source_id": "paper_green_2018",
-      "pdf_id": "green_2018_thrombin_aptamer",
-      "pdf_path": "data/raw/pdf/green_2018_thrombin_aptamer.pdf",
-      "source_url": "https://doi.org/10.1021/example.2018",
-      "doi": "10.1021/example.2018",
-      "selection_reason": "Foundational open-access paper with tabulated Kd values for thrombin-binding aptamers.",
-      "pages_used": [3, 4, 5],
-      "expected_content": "Table 2 with aptamer sequences and SPR Kd values",
+      "source_id": "paper_patel_pnas_2020",
+      "pdf_id": "patel_2020_cyclic_peptides",
+      "pdf_path": "data/raw/pdf/pnas.2003086117.sd01.xlsx",
+      "source_url": "https://doi.org/10.1073/pnas.2003086117",
+      "doi": "10.1073/pnas.2003086117",
+      "selection_reason": "RaPID selection of cyclic peptides against BET bromodomains (BRD2, BRD3, BRD4). Main dataset for cyclic peptide sequences from selection rounds.",
+      "pages_used": [1, 2, 3, 4, 5, 6],
+      "expected_content": "Excel sheets with peptide sequences, reads counts, and proportion values for BRD2-BD1, BRD2-BD2, BRD3-BD1, BRD3-BD2, BRD4-BD1, BRD4-BD2",
+      "extraction_methods": ["excel_import", "manual_verification"],
+      "extraction_status": "completed"
+    },
+    {
+      "source_id": "paper_patel_kd_values",
+      "pdf_id": "patel_2020_kd_table",
+      "pdf_path": "data/raw/pdf/pnas.2003086117.pdf",
+      "source_url": "https://doi.org/10.1073/pnas.2003086117",
+      "doi": "10.1073/pnas.2003086117",
+      "selection_reason": "Table with KD values for selected cyclic peptides against BET bromodomains (3.1A, 3.1B, 3.1C, 3.2A, 3.2B, 4.2A).",
+      "pages_used": [2, 3, 7],
+      "expected_content": "Table of KD values for cyclic peptides binding to BRD2-BD1, BRD2-BD2, BRD3-BD1, BRD3-BD2, BRD4-BD1, BRD4-BD2",
       "extraction_methods": ["pdfplumber_table", "manual_verification"],
-      "extraction_status": "template_pending"
+      "extraction_status": "completed"
     },
     {
-      "source_id": "paper_lee_2020",
-      "pdf_id": "lee_2020_multiplex_panel",
-      "pdf_path": "data/raw/pdf/lee_2020_multiplex_panel.pdf",
-      "source_url": "https://doi.org/10.1038/example.2020",
-      "doi": "10.1038/example.2020",
-      "selection_reason": "Recent multiplex study with supplementary binding table.",
-      "pages_used": [12, 13],
-      "expected_content": "Main-text summary table and reference to Supplementary Table S3",
-      "extraction_methods": ["camelot_lattice", "manual_verification"],
-      "extraction_status": "template_pending"
+      "source_id": "paper_wang_2019",
+      "pdf_id": "wang_2019_cyclic_peptide_library",
+      "pdf_path": "data/raw/pdf/wang_2019_cyclic_peptide_library.pdf",
+      "source_url": "https://doi.org/10.1002/anie.201908713",
+      "doi": "10.1002/anie.201908713",
+      "selection_reason": "Phage-displayed cyclic peptide library against TEV protease and HDAC8. Contains cyclic and linear peptide sequences with KD and IC50 values.",
+      "pages_used": [4, 5, 6],
+      "expected_content": "Table 1 with cyclic peptide sequences (CycTev1, CycTev2, CycH8a) and their linear counterparts with KD/IC50 values",
+      "extraction_methods": ["manual_entry", "ocr"],
+      "extraction_status": "completed"
     },
     {
-      "source_id": "paper_kim_2015",
-      "pdf_id": "kim_2015_lysozyme_aptamer",
-      "pdf_path": "data/raw/pdf/kim_2015_lysozyme_aptamer.pdf",
-      "source_url": "https://doi.org/10.1016/example.2015",
-      "doi": "10.1016/example.2015",
-      "selection_reason": "Older benchmark for lysozyme aptamer with clear assay description.",
-      "pages_used": [6, 7],
-      "expected_content": "Figure caption and Table 1 with Kd in nM",
-      "extraction_methods": ["pymupdf_text", "manual_verification"],
-      "extraction_status": "template_pending"
+      "source_id": "paper_charitou_2022",
+      "pdf_id": "charitou_2022_cyclic_peptide_docking",
+      "pdf_path": "data/raw/pdf/charitou_2022_cyclic_peptides.pdf",
+      "source_url": "https://doi.org/10.1021/acs.jctc.2c00075",
+      "doi": "10.1021/acs.jctc.2c00075",
+      "selection_reason": "Dataset of 30 cyclic peptide-protein complexes from PDB, used for benchmarking docking protocols.",
+      "pages_used": [4, 5, 6, 7],
+      "expected_content": "Tables S1 and S2 with PDB IDs, peptide sequences, and cyclization types for backbone and disulfide cyclic peptides",
+      "extraction_methods": ["csv_export", "api"],
+      "extraction_status": "completed"
     }
   ]
 }

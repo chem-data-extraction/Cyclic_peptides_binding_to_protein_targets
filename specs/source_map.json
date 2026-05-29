@@ -1,12 +1,12 @@
 {
-  "topic": "Aptamer–protein binding measurements",
-  "root_query": "aptamer protein binding Kd SPR SELEX experimental affinity",
-  "source_map_version": "0.1.0",
+  "topic": "Cyclic peptides binding to protein targets",
+  "root_query": "cyclic peptide protein binding Kd IC50 SPR fluorescence affinity cyclic peptide library macrocycle bromodomain HDAC TEV protease",
+  "source_map_version": "1.0.0",
   "source_groups": {
     "scientific_papers": [
       {
-        "source_id": "patel_2020_pnas",
-        "name": "Cyclic peptides can engage a single binding pocket through highly divergent modes",
+        "source_id": "paper_patel_pnas_2020",
+        "name": "Patel et al. - Cyclic peptides can engage a single binding pocket through highly divergent modes",
         "source_type": "journal_article",
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7604503/",
         "doi": "10.1073/pnas.2003086117",
@@ -14,20 +14,58 @@
         "access_method": "publisher PDF download",
         "access_date": "2026-05-28",
         "license": "CC-BY-4.0",
+        "expected_data_volume": "medium",
+        "estimated_records": 570,
+        "available_data_types": ["peptide_sequences", "experimental_conditions"],
+        "expected_fields": ["record_id", "peptide_sequence", "target_type", "reads", "selection_round"],
+        "extraction_strategy": {
+          "recommended_method": "Excel import from supplementary data"
+        },
+        "notes": "RaPID selection data for BRD2, BRD3, BRD4 bromodomains. Contains >47000 unique peptide sequences with AcK residues."
+      },
+      {
+        "source_id": "patel_kd_values",
+        "name": "Patel et al. - KD values for selected cyclic peptides",
+        "source_type": "journal_article",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7604503/",
+        "doi": "10.1073/pnas.2003086117",
+        "access_status": "open_access",
+        "access_method": "PDF extraction",
+        "access_date": "2026-05-28",
+        "license": "CC-BY-4.0",
         "expected_data_volume": "low",
         "estimated_records": 54,
-        "available_data_types": ["binding_measurements", "peptide_sequences", "assay_info"],
-        "expected_fields": ["peptide", "target", "kd_nM", "error_nM"],
+        "available_data_types": ["binding_measurements", "peptide_sequences", "kd_values"],
+        "expected_fields": ["peptide", "target", "affinity_value", "error_nM"],
         "extraction_strategy": {
           "recommended_method": "Extract KD values from Figures 1B, 4B, 5D"
         },
-        "notes": "BET bromodomain peptides with AcK residues. KD values from SPR measurements."
+        "notes": "KD values for selected cyclic peptides against BET bromodomains."
+      },
+      {
+        "source_id": "wang_2019",
+        "name": "Wang et al. - A Genetically Encoded, Phage-Displayed Cyclic Peptide Library",
+        "source_type": "journal_article",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6803038/",
+        "doi": "10.1002/anie.201908713",
+        "access_status": "open_access",
+        "access_method": "publisher PDF download",
+        "access_date": "2026-05-28",
+        "license": "CC BY",
+        "expected_data_volume": "low",
+        "estimated_records": 7,
+        "available_data_types": ["peptide_sequences", "binding_affinities_Kd", "inhibitory_activity_IC50"],
+        "expected_fields": ["ligand", "peptide_sequence", "target_type", "affinity_value"],
+        "extraction_strategy": {
+          "recommended_method": "Extraction from Table 1 (sequences, Kd, IC50)"
+        },
+        "notes": "Cyclic and linear peptides against TEV protease and HDAC8. Values in µM, converted to nM."
       }
     ],
     "supplementary_materials": [
       {
-        "source_id": "sup_charitou_2022_jctc",
-        "name": "Cyclization and Docking Protocol for Cyclic Peptide–Protein Modeling Using HADDOCK2.4",
+        "source_id": "charitou_2022",
+        "name": "Charitou et al. - Cyclic Peptide–Protein Modeling Using HADDOCK2.4",
         "source_type": "supplementary_data",
         "url": "https://doi.org/10.1021/acs.jctc.2c00075",
         "doi": "10.1021/acs.jctc.2c00075",
@@ -37,31 +75,33 @@
         "license": "CC-BY-4.0",
         "expected_data_volume": "low",
         "estimated_records": 30,
-        "available_data_types": ["protein_structures", "peptide_sequences", "docking_validation_metrics"],
-        "expected_fields": ["pdb_id", "peptide_sequence", "peptide_length", "structure_resolution", "peptide_cyclization_type", "source_id", "doi"],
+        "available_data_types": ["protein_structures", "peptide_sequences", "pdb_metadata"],
+        "expected_fields": ["pdb_id", "peptide_sequence", "peptide_length", "structure_resolution", "peptide_cyclization_type"],
         "extraction_strategy": {
-          "recommended_method": "Automatic extraction from tables S1 and S2 in PDF format from supplementary information"
+          "recommended_method": "Extraction from tables S1 and S2"
         },
-        "notes": "Article describes 30 cyclic peptide-protein complexes (18 backbone-cyclized + 12 disulfide-cyclized). No binding affinity constants (Kd/IC50) reported - focus is on structural prediction quality, not binding strength."
-      },
+        "notes": "30 cyclic peptide-protein complexes (18 backbone-cyclized + 12 disulfide-cyclized). No affinity values - structural data only."
+      }
+    ],
+    "databases": [
       {
-        "source_id": "sup_patel_2020_pnas",
-        "name": "Cyclic peptides can engage a single binding pocket through highly divergent modes - Dataset S1 (Sequencing data)",
-        "source_type": "supplementary_data",
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7604503/#sec14",
-        "doi": "10.1073/pnas.2003086117",
+        "source_id": "db_rcsb_pdb",
+        "name": "RCSB Protein Data Bank",
+        "source_type": "database",
+        "url": "https://www.rcsb.org/",
+        "doi": "",
         "access_status": "open_access",
-        "access_method": "supplementary Excel",
+        "access_method": "API",
         "access_date": "2026-05-28",
-        "license": "CC-BY-4.0",
-        "expected_data_volume": "high",
-        "estimated_records": 47609,
-        "available_data_types": ["peptide_sequences", "experimental_conditions"],
-        "expected_fields": ["record_id", "peptide_sequence", "peptide_cyclization_type", "target_type", "target_class_sequence", "target_class", "affinity_value", "affinity_unit", "affinity_type", "source_id", "source_type", "source_url", "doi", "extraction_method", "extraction_confidence", "method", "cyclization_positions", "temperature_C", "pH", "buffer", "mutations", "notes"],
+        "license": "CC0 1.0 Universal",
+        "expected_data_volume": "low",
+        "estimated_records": 30,
+        "available_data_types": ["PDB metadata", "structure resolution", "method", "uniprot_id"],
+        "expected_fields": ["pdb_id", "title", "method", "resolution", "uniprot_id"],
         "extraction_strategy": {
-          "recommended_method": "Extract peptide sequences, counts per round, and frequency. No affinity values (KD) in this file - those are in main text figures."
+          "recommended_method": "RCSB PDB REST API"
         },
-        "notes": "Deep sequencing results from RaPID screen against BRD3-BD1. Contains >47000 unique peptide sequences with read counts per selection round (R3, R4, R5). Each peptide contains at least one AcK (acetyllysine). No KD values in this file."
+        "notes": "Structural metadata for cyclic peptide-protein complexes."
       }
     ]
   }

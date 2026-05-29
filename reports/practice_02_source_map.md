@@ -1,7 +1,5 @@
 # Practice 2 — Source map
 
-> Document how you found sources and maintain `specs/source_map.json` as the machine-readable authority.
-
 ## Source search strategy
 
 | Database | Purpose | Priority

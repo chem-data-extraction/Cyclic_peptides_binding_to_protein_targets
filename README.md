@@ -12,7 +12,7 @@ Collect experimentally confirmed measurements of the binding of cyclic peptides 
 
 ## What is one record?
 
-One **record** = one experimental value of the binding (KD) of a cyclic peptide to a target protein from a specific source. Matches one line in `data/processed/dataset.csv'.
+One **record** = one experimental value of the binding (KD) of a cyclic peptide to a target protein from a specific source. Matches one line in `data/processed/dataset.csv`.
 
 ## Repository structure
 
